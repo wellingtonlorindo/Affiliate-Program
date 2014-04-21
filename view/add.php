@@ -1,10 +1,13 @@
+<?php
+	require_once('alerts.php');
+?>
 <div class="col2-set" id="customer_details">
 
 	<div class="col-1">
 
 		<div class="woocommerce-billing-fields">
 
-			<form action="<?php echo site_url('wp-login.php?action=register', 'login_post') ?>" method="post">
+			<form action="<?php echo site_url('wp-content/plugins/affiliate-program/cad.php') ?>" method="post">
 
 				<h3>Personal Information</h3>
 				<p class="form-row form-row-first validate-required" id="billing_first_name_field">
@@ -29,7 +32,7 @@
 
 				<p class="form-row form-row-first validate-required validate-email" id="billing_email_field">
 					<label for="billing_email" class="">Password <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="password" class="input-text " name="pass1" id="pass1" placeholder="" value="">
+					<input type="password" class="input-text " name="user_pass" id="user_pass" placeholder="" value="">
 				</p>
 
 				<p class="form-row form-row-last validate-required validate-email" id="billing_email_field">
@@ -41,14 +44,14 @@
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">Address <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="address" id="address" placeholder="" value="">
+					<input type="text" class="input-text " name="meta[billing_address_1]" id="billing_address_1" placeholder="" value="">
 				</p>
 
 				<p class="form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated" id="billing_country_field">
 					<label for="billing_country" class="">
 						Country <abbr class="required" title="obrigatório">*</abbr>
 					</label>
-					<select name="country" id="country" class="form-control country_to_state country_select">
+					<select name="meta[shipping_country]" id="meta[shipping_country]" class="form-control country_to_state country_select">
 						<option value="" selected="selected">Select Country</option> 
 						<option value="United States">United States</option> 
 						<option value="United Kingdom">United Kingdom</option> 
@@ -296,29 +299,29 @@
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_city_field" data-o_class="form-row form-row-wide address-field validate-required">
 					<label for="billing_city" class="">City <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="city" id="city" placeholder="Cidade" value="">
+					<input type="text" class="input-text " name="meta[billing_city]" id="meta[billing_city]" placeholder="Cidade" value="">
 				</p>
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">Zip Code <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="zip_code" id="zip_code" placeholder="" value="">
+					<input type="text" class="input-text " name="meta[billing_postcode]" id="meta[billing_postcode]" placeholder="" value="">
 				</p>
 
 				<div class="clear"></div>
 				<h3>Website Information</h3>
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">Website Name </label>
-					<input type="text" class="input-text " name="site" id="site" placeholder="" value="">
+					<input type="text" class="input-text " name="meta[site]" id="site" placeholder="" value="">
 				</p>
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">Website URL </label>
-					<input type="text" class="input-text " name="url" id="url" placeholder="" value="">
+					<input type="text" class="input-text " name="user_url" id="user_url" placeholder="" value="">
 				</p>
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">Payment Method </label>
-					<select name="payment_method" id="payment_method" class="form-control country_to_state country_select">
+					<select name="meta[payment_method]" id="payment_method" class="form-control country_to_state country_select">
 						<option value="">Select</option>
 						<option value="AF">PayPal</option>
 						<option value="AL">Bank Transfer</option>					
@@ -327,13 +330,13 @@
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">PayPal Username (E-mail) <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="paypal_username" id="paypal_username" placeholder="" value="">
+					<input type="text" class="input-text " name="meta[paypal_username]" id="paypal_username" placeholder="" value="">
 				</p>
 
 				<div class="clear"></div>
 				<p>
 					<input type="hidden" name="role" id="role" value="affiliate"/>
-					<input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Sign Up" data-value="Sign Up">
+					<input type="submit" class="button alt" id="place_order" value="Sign Up" data-value="Sign Up">
 				</p>
 			</form>
 

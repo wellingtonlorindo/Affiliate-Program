@@ -17,9 +17,6 @@
 //     die("Yout must install and active the WooCommerce");
 // }
 
-
-update_option( 'users_can_register', 1);
-
 register_activation_hook(__FILE__, 'createPage');
 function createPage() {
 	global $current_user;
@@ -54,18 +51,27 @@ function delPage() {
 
 add_shortcode( 'affiliate_registration', 'my_show_extra_profile_fields' );
 function my_show_extra_profile_fields($user) { 
-	require_once(plugin_dir_path(__FILE__).'/view/add.php');
+	$current_user = wp_get_current_user();
+	$roles = $current_user->roles;
+	if (0 != $current_user->ID) {		
+		require_once(plugin_dir_path(__FILE__).'/view/edit.php');	
+	} else {
+		require_once(plugin_dir_path(__FILE__).'/view/add.php');		
+	}
 }
 
 // Update extra fields
-add_action( 'personal_options_update', 'my_save_extra_profile_fields' );
-add_action( 'edit_user_profile_update', 'my_save_extra_profile_fields' );
-function my_save_extra_profile_fields( $user_id ) {
+add_action( 'profile_update', 'extraProfileFields' );
+add_action( 'user_register', 'extraProfileFields' );
+function extraProfileFields($userId) {
 
-	if ( !current_user_can( 'edit_user', $user_id ) ) {
+	if (!current_user_can('edit_user', $userId) || $_POST['role'] != 'affiliate') {
 		return false;		
 	}
-	update_usermeta( $user_id, 'twitter', $_POST['twitter'] );
+
+	foreach ($_POST['meta'] as $key => $value) {
+		update_user_meta($userId, $key, $value);
+	}
 }
 
 ?>
