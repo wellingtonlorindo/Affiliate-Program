@@ -5,18 +5,19 @@
 
 	require_once('../../../wp-load.php');
 
+	if (!empty($_POST['ID']) && !empty($_POST['user_pass'])) {
+		$_POST['user_pass'] = wp_hash_password($_POST['user_pass']);
+	}
+
 	if (wp_insert_user($_POST)) {
 		if (empty($_POST['ID'])) {
-			$_SESSION['affPInfo'] = "We've sent an email to ".$_POST['user_email'];
-			$_SESSION['affPInfo'] .= "<br /> In the email you'll find a link that when clicked on will bring";
-			$_SESSION['affPInfo'] .= " back to the site so you can start using your account. <br /> ";
+			$param = '?info=ok&email='.$_POST['user_email'];
 		} else {
-			$_SESSION['affPSuccess'] = 'Updated with success.';
+			$param = '?success=ok';
 		}
-		
-		header('Location:'.$_SERVER['HTTP_REFERER']);
 
 	} else {
-		$_SESSION['affPError'] = 'An error has occurred. Please, try again.';
+		$param = '?danger=ok';
 	}
 	
+	header('Location:'.bloginfo('url').'/registration-affp/'.$param);

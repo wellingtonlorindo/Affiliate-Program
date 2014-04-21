@@ -1,24 +1,25 @@
 <?php
-		if (!empty($_SESSION['affPError'])) {
+		if (!empty($_GET['danger'])) {
 ?>
 		<div class="bs-callout bs-callout-danger">		    
-		    <p><?php echo $_SESSION['affPError'];?></p>
+		    <p>An error has occurred. Please, try again.</p>
 		</div>
 <?php
-		$_SESSION['affPError'] = '';
 	}
-	if (!empty($_SESSION['affPInfo'])) {
+	if (!empty($_GET['info'])) {
 ?>
 		<div class="bs-callout bs-callout-info">
-		     <p><?php echo $_SESSION['affPError'];?></p>
+		     <p>
+		     	We've sent an email to <?php echo $_GET['email'];?>. 
+				In the email you'll find a link that when clicked on will bring you
+				back to the site so you can start using your account. 
+			</p>
 		</div>
 
 	<?php
-		$_SESSION['affPInfo'] = '';
 	}
-	if (!empty($_SESSION['affPSuccess'])) {
+	if (!empty($_GET['success'])) {
 ?>
-		<div class="alert alert-success"><?php echo $_SESSION['affPSuccess'];?></div>
+		<div class="alert alert-success">Updated with success.</div>
 <?php
-		$_SESSION['affPSuccess'] = '';
 	}

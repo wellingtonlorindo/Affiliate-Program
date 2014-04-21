@@ -12,32 +12,32 @@
 				<h3>Personal Information</h3>
 				<p class="form-row form-row-first validate-required" id="billing_first_name_field">
 					<label for="billing_first_name" class="">First Name <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="first_name" id="first_name" placeholder="" value="">
+					<input type="text" class="input-text " name="first_name" id="first_name" placeholder="" value="" required>
 				</p>
 
 				<p class="form-row form-row-last validate-required" id="billing_last_name_field">
 					<label for="billing_last_name" class="">Last Name <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="last_name" id="last_name" placeholder="" value="">
+					<input type="text" class="input-text " name="last_name" id="last_name" placeholder="" value="" required>
 				</p><div class="clear"></div>
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_email_field">
 					<label for="billing_email" class="">E-mail <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="user_email" id="user_email" placeholder="" value="">
+					<input type="email" class="input-text " name="user_email" id="user_email" placeholder="" value="" required>
 				</p>
 
 				<p class="form-row form-row-wide validate-required validate-email" id="billing_email_field">
 					<label for="billing_email" class="">User Name <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="user_login" id="user_login" placeholder="" value="">
+					<input type="text" class="input-text " name="user_login" id="user_login" placeholder="" value="" required>
 				</p>
 
 				<p class="form-row form-row-first validate-required validate-email" id="billing_email_field">
 					<label for="billing_email" class="">Password <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="password" class="input-text " name="user_pass" id="user_pass" placeholder="" value="">
+					<input type="password" class="input-text " name="user_pass" id="user_pass" placeholder="" value="" required>
 				</p>
 
 				<p class="form-row form-row-last validate-required validate-email" id="billing_email_field">
 					<label for="billing_email" class="">Verify Password <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="password" class="input-text " name="pass2" id="pass2" placeholder="" value="">
+					<input type="password" class="input-text " name="pass2" id="pass2" placeholder="" value="" required>
 				</p>
 				<div class="clear"></div>
 				<h3>Contact Information</h3>
@@ -51,7 +51,7 @@
 					<label for="billing_country" class="">
 						Country <abbr class="required" title="obrigatório">*</abbr>
 					</label>
-					<select name="meta[shipping_country]" id="meta[shipping_country]" class="form-control country_to_state country_select">
+					<select name="meta[shipping_country]" id="meta[shipping_country]" class="form-control country_to_state country_select" required>
 						<option value="" selected="selected">Select Country</option> 
 						<option value="United States">United States</option> 
 						<option value="United Kingdom">United Kingdom</option> 
@@ -299,12 +299,12 @@
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_city_field" data-o_class="form-row form-row-wide address-field validate-required">
 					<label for="billing_city" class="">City <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="meta[billing_city]" id="meta[billing_city]" placeholder="Cidade" value="">
+					<input type="text" class="input-text " name="meta[billing_city]" id="meta[billing_city]" placeholder="Cidade" value="" required>
 				</p>
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">Zip Code <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="meta[billing_postcode]" id="meta[billing_postcode]" placeholder="" value="">
+					<input type="text" class="input-text " name="meta[billing_postcode]" id="meta[billing_postcode]" placeholder="" value="" required>
 				</p>
 
 				<div class="clear"></div>
@@ -320,8 +320,8 @@
 				</p>
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
-					<label for="billing_address_1" class="">Payment Method </label>
-					<select name="meta[payment_method]" id="payment_method" class="form-control country_to_state country_select">
+					<label for="billing_address_1" class="">Payment Method <abbr class="required" title="obrigatório">*</abbr></label>
+					<select name="meta[payment_method]" id="payment_method" class="form-control country_to_state country_select" required>
 						<option value="">Select</option>
 						<option value="AF">PayPal</option>
 						<option value="AL">Bank Transfer</option>					
@@ -344,9 +344,4 @@
 	</div>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="<? bloginfo('url');?>/wp-content/plugins/affiliate-program/css/bootstrap.min.css">
-	<style type="text/css">
-	#comments,
-	#respond {
-		display: none;
-	}
-	</style>
+	<link rel="stylesheet" href="<? bloginfo('url');?>/wp-content/plugins/affiliate-program/css/style.css">

@@ -1,9 +1,7 @@
 <?php
 	$allMetaUser = array_map( function( $a ){ return $a[0]; }, get_user_meta($current_user->ID) );
 	$affiliate = array_merge($allMetaUser, get_object_vars($current_user));
-	// $affiliate = array_merge($affiliate, get_object_vars($affiliate['data']));
-	// echo "<pre>";
-	// print_r($affiliate);
+	
 	require_once('alerts.php');
 
 ?>
@@ -131,43 +129,4 @@
 	</div>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="<? bloginfo('url');?>/wp-content/plugins/affiliate-program/css/bootstrap.min.css">
-	<style type="text/css">
-		#comments,
-		#respond {
-			display: none;
-		}
-
-		/* Side notes for calling out things
-		-------------------------------------------------- */
-
-		/* Base styles (regardless of theme) */
-		.bs-callout {
-			margin: 20px 0;
-			padding: 15px 30px 15px 15px;
-			border-left: 5px solid #eee;
-		}
-		.bs-callout h4 {
-			margin-top: 0;
-		}
-		.bs-callout p:last-child {
-			margin-bottom: 0;
-		}
-		.bs-callout code,
-		.bs-callout .highlight {
-			background-color: #fff;
-		}
-
-		/* Themes for different contexts */
-		.bs-callout-danger {
-			background-color: #fcf2f2;
-			border-color: #dFb5b4;
-		}
-		.bs-callout-warning {
-			background-color: #fefbed;
-			border-color: #f1e7bc;
-		}
-		.bs-callout-info {
-			background-color: #f0f7fd;
-			border-color: #d0e3f0;
-		}
-	</style>
+	<link rel="stylesheet" href="<? bloginfo('url');?>/wp-content/plugins/affiliate-program/css/style.css">
