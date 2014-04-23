@@ -117,8 +117,8 @@ function affpMailFromName() {
 	return "Affiliate Program";
 }
 
-add_action('user_register', 'newUserNotification');
-function newUserNotification($userId) {
+add_action('user_register', 'affpNewUserNotification');
+function affpNewUserNotification($userId) {
 	$user = new WP_User($userId);
 	$user_login = stripslashes($user->user_login);
 	$user_email = stripslashes($user->user_email);
@@ -131,7 +131,7 @@ function newUserNotification($userId) {
 	<p>A very special welcome to you, <?php echo $user_login ?>. Thank you for joining Affiliate Program!</p>
 	
 	<p>
-		Click on the link below to confirm your registration. <?php bloginfo('url').'/wp-login.php';?>
+		Click on the link below to confirm your registration. <br> <?php echo get_site_url().'/wp-login.php';?>
 	</p>
 
 	<p>
@@ -140,7 +140,7 @@ function newUserNotification($userId) {
 	</p>
 	
 	<p>
-		We hope you enjoy your stay at affiliateprogram.com. If you have any problems, questions, opinions, praise, 
+		We hope you enjoy your stay at <?php bloginfo('url');?>. If you have any problems, questions, opinions, praise, 
 		comments, suggestions, please feel free to contact us at any time.
 	</p>	
 	
