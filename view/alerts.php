@@ -20,6 +20,10 @@
 	}
 	if (!empty($_GET['success'])) {
 ?>
-		<div class="alert alert-success">Updated with success.</div>
+		<div class="bs-callout bs-callout-success">
+		     <p>
+		     	Updated with success.
+			</p>
+		</div>
 <?php
 	}

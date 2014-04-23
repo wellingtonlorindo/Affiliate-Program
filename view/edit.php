@@ -121,12 +121,10 @@
 					
 					<input type="hidden" name="ID" id="ID" value="<?php echo $affiliate['ID'];?>"/>					
 					<input type="hidden" name="role" id="role" value="affiliate"/>
-					<input type="submit" class="button alt" id="place_order" value="Sign Up" data-value="Sign Up">
+					<input type="submit" class="button alt" id="btn-sign" value="Sign Up" data-value="Sign Up">
 				</p>
 			</form>
 
 		</div>
 	</div>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="<? bloginfo('url');?>/wp-content/plugins/affiliate-program/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<? bloginfo('url');?>/wp-content/plugins/affiliate-program/css/style.css">
+	
