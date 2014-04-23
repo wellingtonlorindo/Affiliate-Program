@@ -12,22 +12,23 @@
 
 /**
  * Check if WooCommerce is active
+ * 
  **/
 if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-    function my_admin_notice(){
+    function affpAdminNotice(){
 	    echo '<div class="error">
-		       <p>Yout must install and active the WooCommerce.</p>
+		       <p>Yout must install and to activate the <strong>WooCommerce</strong> also.</p>
 		    </div>';
 	}
-	add_action('admin_notices', 'my_admin_notice');
-	return false;
+	add_action('admin_notices', 'affpAdminNotice');
 }
 
 /**
  * Create the page of registration
+ * 
  */
-register_activation_hook(__FILE__, 'createPage');
-function createPage() {
+register_activation_hook(__FILE__, 'affpCreatePage');
+function affpCreatePage() {
 	global $current_user;
 
 	$title = 'Affiliate Registration';
@@ -47,8 +48,8 @@ function createPage() {
 	wp_insert_post($post);	
 }
 
-register_deactivation_hook(__FILE__, 'delPage');
-function delPage() {
+register_deactivation_hook(__FILE__, 'affpDelPage');
+function affpDelPage() {
 	$page = end(get_posts(array(
 			'name'      => 'registration-affp',
 			'post_type' => 'page'
@@ -60,13 +61,18 @@ function delPage() {
 
 /**
  * Add the registration form
+ *
  */
-add_shortcode( 'affiliate_registration', 'my_show_extra_profile_fields' );
-function my_show_extra_profile_fields($user) { 
+add_shortcode( 'affiliate_registration', 'affpProfileFields' );
+function affpProfileFields($user) { 
 	$current_user = wp_get_current_user();
 	$roles = $current_user->roles;
-	if (0 != $current_user->ID) {		
-		require_once(plugin_dir_path(__FILE__).'/view/edit.php');	
+	if (0 != $current_user->ID) {	
+		if (in_array('affiliate', $roles)) {
+			require_once(plugin_dir_path(__FILE__).'/view/edit.php');	
+		} else {
+			require_once(plugin_dir_path(__FILE__).'/view/add.php');	
+		}
 	} else {
 		require_once(plugin_dir_path(__FILE__).'/view/add.php');		
 	}
@@ -79,9 +85,9 @@ function my_show_extra_profile_fields($user) {
 }
 
 // Update extra fields
-add_action( 'profile_update', 'extraProfileFields' );
-add_action( 'user_register', 'extraProfileFields' );
-function extraProfileFields($userId) {
+add_action('profile_update', 'affpUpdateProfileFields');
+add_action('user_register', 'affpUpdateProfileFields');
+function affpUpdateProfileFields($userId) {
 
 	if (!current_user_can('edit_user', $userId) || $_POST['role'] != 'affiliate') {
 		return false;		
@@ -94,53 +100,54 @@ function extraProfileFields($userId) {
 
 /**
  * Send Emails
+ * 
  */
-add_filter ("wp_mail_content_type", "my_awesome_mail_content_type");
-function my_awesome_mail_content_type() {
+add_filter ("wp_mail_content_type", "affpMailContentType");
+function affpMailContentType() {
 	return "text/html";
 }
 	
-add_filter ("wp_mail_from", "my_awesome_mail_from");
-function my_awesome_mail_from() {
-	return "hithere@myawesomesite.com";
+add_filter ("wp_mail_from", "affpMailFrom");
+function affpMailFrom() {
+	return "contact@affiliateprogram.com";
 }
 	
-add_filter ("wp_mail_from_name", "my_awesome_mail_from_name");
-function my_awesome_email_from_name() {
-	return "MyAwesomeSite";
+add_filter ("wp_mail_from_name", "affpMailFromName");
+function affpMailFromName() {
+	return "Affiliate Program";
 }
 
-function wp_new_user_notification($user_id, $plaintext_pass) {
-	die('chamou este cara!');
-	$user = new WP_User($user_id);
-
+add_action('user_register', 'newUserNotification');
+function newUserNotification($userId) {
+	$user = new WP_User($userId);
 	$user_login = stripslashes($user->user_login);
 	$user_email = stripslashes($user->user_email);
 	
-	$email_subject = "Welcome to MyAwesomeSite ".$user_login."!";
+	$email_subject = "Welcome to Affiliate Program ".$user_login."!";
 	
 	ob_start();
 	
-?>
-	
-	<p>A very special welcome to you, <?php echo $user_login ?>. Thank you for joining MyAwesomeSite.com!</p>
+?>	
+	<p>A very special welcome to you, <?php echo $user_login ?>. Thank you for joining Affiliate Program!</p>
 	
 	<p>
-		Your password is <strong style="color:orange"><?php echo $plaintext_pass ?></strong> <br>
+		Click on the link below to confirm your registration. <?php bloginfo('url').'/wp-login.php';?>
+	</p>
+
+	<p>
+		Your password is <strong style="color:blue"><?php echo $_POST['user_pass']; ?></strong> <br>
 		Please keep it secret and keep it safe!
 	</p>
 	
 	<p>
-		We hope you enjoy your stay at MyAwesomeSite.com. If you have any problems, questions, opinions, praise, 
-		comments, suggestions, please feel free to contact us at any time
+		We hope you enjoy your stay at affiliateprogram.com. If you have any problems, questions, opinions, praise, 
+		comments, suggestions, please feel free to contact us at any time.
 	</p>	
 	
 <?php
-
 	
 	$message = ob_get_contents();
 	ob_end_clean();
-
 	wp_mail($user_email, $email_subject, $message);
 }
 
