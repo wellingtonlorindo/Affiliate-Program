@@ -1,8 +1,8 @@
 <?php
-	session_start();
-	error_reporting(E_ALL);
-	ini_set("display_errors", 1);
-
+	/**
+	 * Do the user registration on database
+	 */
+	
 	require_once('../../../wp-load.php');
 
 	if (!empty($_POST['ID']) && !empty($_POST['user_pass'])) {

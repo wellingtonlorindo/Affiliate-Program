@@ -342,4 +342,10 @@
 
 		</div>
 	</div>
-	
+
+	<div class="col-2">
+		<a class="pull-right" href="<?php bloginfo('url');?>/wp-login.php">
+			Sign in
+		</a>
+	</div>
+</div>

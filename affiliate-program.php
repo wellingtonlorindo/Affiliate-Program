@@ -66,9 +66,9 @@ function affpDelPage() {
 add_shortcode( 'affiliate_registration', 'affpProfileFields' );
 function affpProfileFields($user) { 
 	$current_user = wp_get_current_user();
-	$roles = $current_user->roles;
+	$roles = $current_user->caps;
 	if (0 != $current_user->ID) {	
-		if (in_array('affiliate', $roles)) {
+		if (array_key_exists('affiliate', $roles)) { 
 			require_once(plugin_dir_path(__FILE__).'/view/edit.php');	
 		} else {
 			require_once(plugin_dir_path(__FILE__).'/view/add.php');	
@@ -88,10 +88,6 @@ function affpProfileFields($user) {
 add_action('profile_update', 'affpUpdateProfileFields');
 add_action('user_register', 'affpUpdateProfileFields');
 function affpUpdateProfileFields($userId) {
-
-	if (!current_user_can('edit_user', $userId) || $_POST['role'] != 'affiliate') {
-		return false;		
-	}
 
 	foreach ($_POST['meta'] as $key => $value) {
 		update_user_meta($userId, $key, $value);
@@ -150,5 +146,27 @@ function affpNewUserNotification($userId) {
 	ob_end_clean();
 	wp_mail($user_email, $email_subject, $message);
 }
+
+/**
+ * Redirect the user to the home page after sign in
+ * 
+ */
+add_filter('login_redirect', 'affpLoginRedirect', 10, 3);
+function affpLoginRedirect($redirectTo, $request, $user) {
+	// Remove the admin bar
+	if (!current_user_can('manage_options')) {
+	    add_filter('show_admin_bar', '__return_false');
+	}
+
+    if (is_array( $user->roles)) {
+        if (in_array('administrator', $user->roles)) {
+            return home_url( '/wp-admin/' );        	
+        } else {
+            return home_url();        	
+        }
+    }
+    
+}
+
 
 ?>

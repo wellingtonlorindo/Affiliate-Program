@@ -1,19 +1,20 @@
 <?php
 	$allMetaUser = array_map( function( $a ){ return $a[0]; }, get_user_meta($current_user->ID) );
-	$affiliate = array_merge($allMetaUser, get_object_vars($current_user));
-	
+	$affiliate = array_merge($allMetaUser, get_object_vars($current_user->data));
+	// echo "<pre>";
+	// print_r($allMetaUser);
 	require_once('alerts.php');
 
 ?>
 <div class="col2-set" id="customer_details">
-
+	
 	<div class="col-1">
 
 		<div class="woocommerce-billing-fields">
 
 			<form action="<?php echo site_url('wp-content/plugins/affiliate-program/cad.php') ?>" method="post">
 
-				<h3>Personal Information</h3>
+				<h3>Personal Information </h3>
 				<p class="form-row form-row-first validate-required" id="billing_first_name_field">
 					<label for="billing_first_name" class="">First Name <abbr class="required" title="obrigatório">*</abbr></label>
 					<input type="text" class="input-text " name="first_name" id="first_name" placeholder="" value="<?php echo $affiliate['first_name'];?>">
@@ -26,7 +27,7 @@
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_email_field">
 					<label for="billing_email" class="">E-mail <abbr class="required" title="obrigatório">*</abbr></label>
-					<input type="text" class="input-text " name="user_email" id="user_email" placeholder="" value="<?php echo $affiliate['email'];?>">
+					<input type="text" class="input-text " name="user_email" id="user_email" placeholder="" value="<?php echo $affiliate['user_email'];?>">
 				</p>
 
 				<p class="form-row form-row-wide validate-required validate-email" id="billing_email_field">
@@ -91,7 +92,7 @@
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
 					<label for="billing_address_1" class="">Website URL </label>
-					<input type="text" class="input-text " name="user_url" id="user_url" placeholder="" value="<?php echo $affiliate['data']->user_url;?>">
+					<input type="text" class="input-text " name="user_url" id="user_url" placeholder="" value="<?php echo $affiliate['user_url'];?>">
 				</p>
 
 				<p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
@@ -127,4 +128,13 @@
 
 		</div>
 	</div>
-	
+	<div class="col-2">
+		<span class="pull-right">Hello, <?php echo $affiliate['first_name'];?>!</span> 
+		<br>
+		<br>
+		<a class="pull-right" href="<?php bloginfo('url');?>/wp-login.php?action=logout&_wpnonce=4946f09146">
+			Logout
+		</a>
+	</div>
+
+</div>	
